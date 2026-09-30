@@ -1,9 +1,7 @@
-import { Clock3 } from "lucide-react";
-import { Link } from "react-router-dom";
-import professionImg from "@assets/image_1790595643720.png";
-import skillsImg from "@assets/image_1790595649616.png";
-import "./ProgramsSection.css";
-
+import { Calendar } from "lucide-react";
+import professionImg from "/src/assets/sotrudnik1.png";
+import skillsImg from "/src/assets/sotrudnik2.png";
+import "./ProgramsSection.css"
 const PROGRAM_GROUPS = [
   {
     title: "Профессии",
@@ -24,7 +22,7 @@ const PROGRAM_GROUPS = [
       },
       {
         name: "Go-разработчик с нуля",
-        description: "Серверная разработка, API, горутины и Go",
+        description: "Серверная разработка, API, горутины и Gin",
         duration: "10 месяцев",
       },
     ],
@@ -56,14 +54,14 @@ const PROGRAM_GROUPS = [
     action: "Все навыки",
   },
 ];
-
-export default function ProgramsSection() {
+function ProgramsSection() {
   return (
     <section className="programs" aria-labelledby="programs-title">
       <div className="programs__intro">
-        <h2 id="programs-title">Школа программирования для любого уровня: от нуля до опытного практика</h2>
+        <h2 id="programs-title">
+          Школа программирования для любого уровня: от нуля до опытного практика
+        </h2>
       </div>
-
       <div className="programs__groups">
         {PROGRAM_GROUPS.map((group) => (
           <article className="program-group" key={group.title}>
@@ -71,7 +69,6 @@ export default function ProgramsSection() {
               <img src={group.image} alt={group.imageAlt} />
               <span>{group.caption}</span>
             </div>
-
             <div className="program-group__content">
               <div className="program-group__heading">
                 <div>
@@ -79,23 +76,23 @@ export default function ProgramsSection() {
                   <p>{group.description}</p>
                 </div>
               </div>
-
               <div className="program-list">
                 {group.items.map((item) => (
-                  <Link to="/catalog" className="program-row" key={item.name}>
+                  <a href="#catalog" className="program-row" key={item.name}>
                     <strong>{item.name}</strong>
-                    <span className="program-row__description">{item.description}</span>
+                    <span className="program-row__description">
+                      {item.description}
+                    </span>
                     <span className="program-row__duration">
-                      <Clock3 size={13} strokeWidth={1.8} />
+                      <Calendar size={13} strokeWidth={1.8} />
                       {item.duration}
                     </span>
-                  </Link>
+                  </a>
                 ))}
               </div>
-
-              <Link className="program-group__action" to="/catalog">
+              <a className="program-group__action" href="#catalog">
                 {group.action}
-              </Link>
+              </a>
             </div>
           </article>
         ))}
@@ -103,3 +100,5 @@ export default function ProgramsSection() {
     </section>
   );
 }
+
+export default ProgramsSection;

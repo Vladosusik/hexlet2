@@ -1,6 +1,6 @@
 import { Headphones, TrendingUp, Flame, Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImg from "@assets/;
+import heroImg from "@/assets/hero.jpg";
 import "./HeroSection.css";
 
 const HERO_CARDS = [

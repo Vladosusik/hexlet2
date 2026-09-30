@@ -269,8 +269,6 @@
   .header__mobile-menu {
     display: flex;
   }
-
-  /* На мобильном — полностью скрываем дропдауны (hover не работает на тач) */
   .header__nav-item .header__dropdown {
     display: none !important;
   }

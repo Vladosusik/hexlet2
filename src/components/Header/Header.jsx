@@ -16,12 +16,11 @@ export default function Header({ dark, onToggleDark }) {
       <div className="header__inner">
         <div className="header__left">
           <Link to="/" className="header__logo">
-            <HexletLogo />
             <span>Хекслет</span>
           </Link>
           <nav className="header__nav">
 
-            {/* Все курсы — hover dropdown */}
+
             <div className="header__nav-item">
               <button className="header__nav-btn">
                 Все курсы
@@ -48,8 +47,6 @@ export default function Header({ dark, onToggleDark }) {
                 <a href="#" className="header__dropdown-item">Фронтенд-разработчик</a>
               </div>
             </div>
-
-            {/* О Хекслете — hover dropdown */}
             <div className="header__nav-item header__nav-item--desktop">
               <button className="header__nav-btn">
                 О Хекслете
@@ -119,11 +116,5 @@ export default function Header({ dark, onToggleDark }) {
   );
 }
 
-function HexletLogo() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="32" height="32" rx="6" fill="#4A25AA" />
-      <path d="M8 10h4v5h8v-5h4v12h-4v-5H12v5H8V10z" fill="white" />
-    </svg>
-  );
-}
+
+

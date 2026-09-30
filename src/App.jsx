@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header/Header";
-import HeroSection from "./components/HeroSection/HeroSection";
-import CategoryTabs from "./components/CategoryTabs/CategoryTabs";
-import ProgramsSection from "./components/ProgramsSection/ProgramsSection";
+import Header from "./components/Header/Header.jsx";
+import HeroSection from "./components/HeroSection/HeroSection.jsx";
+import CategoryTabs from "./components/CategoryTabs/CategoryTabs.jsx";
+import ProgramsSection from "./components/ProgramsSection/ProgramsSection.jsx";
+import Footer from "./components/Footer/Footer.jsx";
 
 function App() {
   const [dark, setDark] = useState(false);
@@ -43,6 +44,8 @@ function App() {
             }
           />
         </Routes>
+
+        <Footer/>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   border: 1px solid hsl(var(--border));
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
   cursor: pointer;
   text-align: center;
   white-space: nowrap;
@@ -30,13 +30,8 @@
   border-color: hsl(var(--foreground));
 }
 
-.tabs__btn--active {
-  background-color: hsl(var(--foreground));
-  color: hsl(var(--background));
-  border-color: hsl(var(--foreground));
-}
 
-/* ── Адаптив ── */
+
 @media (max-width: 1023px) {
   .tabs__list {
     grid-template-columns: repeat(3, 1fr);
