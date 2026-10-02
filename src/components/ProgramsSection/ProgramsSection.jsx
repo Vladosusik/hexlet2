@@ -1,14 +1,13 @@
 import { Calendar } from "lucide-react";
-import professionImg from "/src/assets/sotrudnik1.png";
-import skillsImg from "/src/assets/sotrudnik2.png";
+import { getProgramPeople } from "../../api/teacherAPI";
+import { Link } from "react-router-dom";
 import "./ProgramsSection.css"
+import { useState, useEffect } from "react";
 const PROGRAM_GROUPS = [
   {
     title: "Профессии",
     description: "Если вы новичок и хотите получить новую профессию в IT-сфере",
-    image: professionImg,
-    imageAlt: "Надежда Каменская, выпускница курса Frontend-разработчик",
-    caption: "Надежда Каменская, выпускница курса Frontend-разработчик",
+    peopleGroupId: "professions",
     items: [
       {
         name: "LLM-разработчик",
@@ -22,7 +21,7 @@ const PROGRAM_GROUPS = [
       },
       {
         name: "Go-разработчик с нуля",
-        description: "Серверная разработка, API, горутины и Gin",
+        description: "Серверная разработка, API, горутины и Go",
         duration: "10 месяцев",
       },
     ],
@@ -31,9 +30,7 @@ const PROGRAM_GROUPS = [
   {
     title: "Навыки",
     description: "Если вы хотите повысить квалификацию или актуализировать знания",
-    image: skillsImg,
-    imageAlt: "Евгений Сендзюк, выпускник курсов Python и Frontend-разработчик",
-    caption: "Евгений Сендзюк, выпускник курсов Python и Frontend-разработчик",
+    peopleGroupId: "skills",
     items: [
       {
         name: "ИИ для разработчиков",
@@ -54,51 +51,104 @@ const PROGRAM_GROUPS = [
     action: "Все навыки",
   },
 ];
+
 function ProgramsSection() {
+  const [programPeople, setProgramPeople] = useState([]);
+  const [loadingPeople, setLoadingPeople] = useState(true);
+  const [peopleError, setPeopleError] = useState(false);
+
+  useEffect(() => {
+    let isActive = true;
+
+    getProgramPeople()
+      .then((people) => {
+        if (isActive) {
+          setProgramPeople(people);
+          setPeopleError(false);
+        }
+      })
+      .catch(() => {
+        if (isActive) {
+          setPeopleError(true);
+        }
+      })
+      .finally(() => {
+        if (isActive) {
+          setLoadingPeople(false);
+        }
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
   return (
     <section className="programs" aria-labelledby="programs-title">
       <div className="programs__intro">
-        <h2 id="programs-title">
-          Школа программирования для любого уровня: от нуля до опытного практика
-        </h2>
+        <h2 id="programs-title">Школа программирования для любого уровня: от нуля до опытного практика</h2>
       </div>
+
       <div className="programs__groups">
-        {PROGRAM_GROUPS.map((group) => (
-          <article className="program-group" key={group.title}>
-            <div className="program-group__portrait">
-              <img src={group.image} alt={group.imageAlt} />
-              <span>{group.caption}</span>
-            </div>
-            <div className="program-group__content">
-              <div className="program-group__heading">
-                <div>
-                  <h3>{group.title}</h3>
-                  <p>{group.description}</p>
+        {PROGRAM_GROUPS.map((group) => {
+          const person = programPeople.find(
+            (entry) => entry.groupId === group.peopleGroupId,
+          );
+
+          return (
+            <article className="program-group" key={group.title}>
+              <div
+                className={`program-group__portrait ${
+                  loadingPeople ? "program-group__portrait--loading" : ""
+                }`}
+                aria-busy={loadingPeople}
+              >
+                {person ? (
+                  <>
+                    <img src={person.image} alt={person.imageAlt} />
+                    <span>{person.caption}</span>
+                  </>
+                ) : loadingPeople ? (
+                  <div className="program-group__loading" role="status">
+                    Загрузка профиля…
+                  </div>
+                ) : peopleError ? (
+                  <div className="program-group__profile-error" role="alert">
+                    Не удалось загрузить профиль
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="program-group__content">
+                <div className="program-group__heading">
+                  <div>
+                    <h3>{group.title}</h3>
+                    <p>{group.description}</p>
+                  </div>
                 </div>
+
+                <div className="program-list">
+                  {group.items.map((item) => (
+                    <Link to="" className="program-row" key={item.name}>
+                      <strong>{item.name}</strong>
+                      <span className="program-row__description">{item.description}</span>
+                      <span className="program-row__duration">
+                        <Calendar size={13} strokeWidth={1.8} />
+                        {item.duration}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+
+                <Link className="program-group__action" to="">
+                  {group.action}
+                </Link>
               </div>
-              <div className="program-list">
-                {group.items.map((item) => (
-                  <a href="#catalog" className="program-row" key={item.name}>
-                    <strong>{item.name}</strong>
-                    <span className="program-row__description">
-                      {item.description}
-                    </span>
-                    <span className="program-row__duration">
-                      <Calendar size={13} strokeWidth={1.8} />
-                      {item.duration}
-                    </span>
-                  </a>
-                ))}
-              </div>
-              <a className="program-group__action" href="#catalog">
-                {group.action}
-              </a>
-            </div>
-          </article>
-        ))}
+            </article>
+          );
+        })}
       </div>
     </section>
   );
 }
-
 export default ProgramsSection;

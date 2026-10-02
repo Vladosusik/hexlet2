@@ -254,7 +254,7 @@
   margin: 0.25rem 0;
 }
 
-/* ── Responsive ── */
+
 @media (max-width: 767px) {
   .header__nav-item--desktop,
   .header__nav-btn--desktop,

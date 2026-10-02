@@ -5,14 +5,25 @@ import HeroSection from "./components/HeroSection/HeroSection.jsx";
 import CategoryTabs from "./components/CategoryTabs/CategoryTabs.jsx";
 import ProgramsSection from "./components/ProgramsSection/ProgramsSection.jsx";
 import Footer from "./components/Footer/Footer.jsx";
+import Login from "./components/Login/Login.jsx";
 
 function App() {
   const [dark, setDark] = useState(false);
 
   return (
     <div className={dark ? "dark" : ""}>
-      <div style={{ minHeight: "100vh", backgroundColor: "hsl(var(--background))", color: "hsl(var(--foreground))" }}>
-        <Header dark={dark} onToggleDark={() => setDark((d) => !d)} />
+      <div
+        style={{
+          minHeight: "100vh",
+          backgroundColor: "hsl(var(--background))",
+          color: "hsl(var(--foreground))",
+        }}
+      >
+        <Header
+          dark={dark}
+          onToggleDark={() => setDark((current) => !current)}
+        />
+
         <Routes>
           <Route
             path="/"
@@ -24,6 +35,7 @@ function App() {
               </main>
             }
           />
+
           <Route
             path="/catalog"
             element={
@@ -33,6 +45,16 @@ function App() {
               </main>
             }
           />
+
+          <Route
+            path="/login"
+            element={
+              <main className="login-main">
+                <Login />
+              </main>
+            }
+          />
+
           <Route
             path="*"
             element={
@@ -45,7 +67,7 @@ function App() {
           />
         </Routes>
 
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );

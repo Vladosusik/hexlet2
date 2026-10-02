@@ -75,7 +75,9 @@ export default function Header({ dark, onToggleDark }) {
 
         <div className="header__right">
           <a href="#" className="header__nav-btn header__nav-btn--desktop">Регистрация</a>
-          <a href="#" className="header__nav-btn header__nav-btn--desktop">Вход</a>
+          <Link to="/login" className="header__nav-btn header__nav-btn--desktop">
+          Вход
+          </Link>
           <button
             onClick={onToggleDark}
             className="header__theme-btn header__theme-btn--desktop"

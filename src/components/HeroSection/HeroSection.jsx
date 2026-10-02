@@ -1,5 +1,5 @@
 import { Headphones, TrendingUp, Flame, Building2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { href, Link } from "react-router-dom";
 import heroImg from "@/assets/hero.jpg";
 import "./HeroSection.css";
 
@@ -7,25 +7,25 @@ const HERO_CARDS = [
   {
     icon: Headphones,
     title: "Освоить профессию с нуля",
-    to: "/catalog",
+    to: "",
     variant: "default",
   },
   {
     icon: TrendingUp,
     title: "Освоить навык и повысить грейд",
-    to: "/catalog",
+    to: "",
     variant: "default",
   },
   {
     icon: Flame,
     title: "Начать бесплатно",
-    to: "/catalog",
+    to: "",
     variant: "primary",
   },
   {
     icon: Building2,
     title: "Обучение от компании",
-    to: "/catalog",
+    to: "https://b2b.hexlet.io/",
     variant: "default",
   },
 ];
